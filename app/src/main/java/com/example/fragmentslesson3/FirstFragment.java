@@ -26,8 +26,9 @@ public class FirstFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        initListener();
-        initView();
+        initView(view);
+        initListener(view);
+
     }
 
     @Override
@@ -36,22 +37,22 @@ public class FirstFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_first, container, false);
 
     }
-    private void initListener() {
+    private void initListener(View view) {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
             Bundle bundle = new Bundle();
             bundle.putString(PUT_KEY, editText.getText().toString());
-            SecondFragment secondFragment =new SecondFragment();
-            secondFragment.getArguments(bundle);
-requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container,secondFragment).commit();
+            Fragment fragment = new SecondFragment();
+            fragment.setArguments(bundle);
+requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container,fragment).commit();
             }
 
         });
 
     }
-    private void initView() {
-        editText = getView().findViewById(R.id.edit_text);
-        btn = getView().findViewById(R.id.btn);
+    private void initView(View view) {
+        editText = view.findViewById(R.id.edit_text);
+        btn = view.findViewById(R.id.btn);
     }
 }
